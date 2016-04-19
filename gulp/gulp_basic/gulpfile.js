@@ -7,9 +7,10 @@ var _ = require('lodash');
 var $ = require('gulp-load-plugins')({
     lazy: true
 });
-var port = process.env.PORT || config.defaultPort;
-
+// make sure that watchify is installed
 var watchify = require('watchify');
+
+var port = process.env.PORT || config.defaultPort;
 
 gulp.task('help', $.taskListing);
 
@@ -50,8 +51,10 @@ gulp.task('clean-styles', function (done) {
     clean(files, done);
 });
 
-gulp.task('clean-maps', function (done) {
-    clean(config.css + '**/*.map', done);
+gulp.task('watch', function () {
+    log('WATCH: watching less files ');
+    // watch the dirs (1st parm) and kick the tasks (2nd parm)
+    gulp.watch([config.less], ['styles']); 
 });
 
 //////////////////////////////////////////////
